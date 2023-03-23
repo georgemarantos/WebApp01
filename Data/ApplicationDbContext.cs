@@ -1,4 +1,4 @@
-﻿using CleanDDTest.Models;
+using CleanDDTest.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanDDTest.Data

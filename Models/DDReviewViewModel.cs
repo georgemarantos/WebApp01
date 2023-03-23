@@ -1,4 +1,4 @@
-﻿namespace CleanDDTest.Models
+namespace CleanDDTest.Models
 {
     public class DDReviewViewModel
     {

@@ -1,4 +1,4 @@
-﻿using CleanDDTest.Models;
+using CleanDDTest.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using CleanDDTest.Data;
