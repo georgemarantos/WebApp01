@@ -1,0 +1,20 @@
+﻿@{
+    string errorMessage = ViewBag.ErrorMessage;
+    string modelErrors = ViewBag.ModelErrors;
+}
+
+@if (!string.IsNullOrEmpty(modelErrors) || !string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="error-container"></div>
+        <p class="validation-error">Please correct the following item(s) below:</p>
+   
+    if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="validation-summary-errors">
+            <ul>
+                <li>@errorMessage</li>
+            </ul>
+        </div>
+    }
+<div asp-validation-summary="All"></div>
+}

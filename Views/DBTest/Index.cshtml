@@ -1,0 +1,46 @@
+﻿@using CleanDDTest.Models
+@model IEnumerable<AdminUser>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Status</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    @foreach (var userInfo in Model)
+    {
+        <tr>
+            <td>
+                @userInfo.UserEmail
+            </td>
+            <td>
+                @userInfo.FirstName
+            </td>
+            <td>
+                @userInfo.LastName
+            </td>
+            <td>
+                @if (@userInfo.UserStatus == 1)
+                {
+                    <span>Active</span>
+                }
+                else
+                {
+                    <span>Inactive</span>
+                }
+            </td>
+            <td>
+                @userInfo.UserRole
+            </td>
+        </tr>
+    }
+    <tbody>
+    </tbody>
+</table>

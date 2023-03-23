@@ -1,0 +1,52 @@
+﻿@model AdminUser
+
+@{
+    ViewData["Title"] = "Delete User";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["PageH1Title"] = "Delete User Access";
+}
+
+<div class="row">
+    <div class="col-md-6">
+<form method="post" asp-action="Delete">
+    <input asp-for="Id" hidden />
+    <div asp-validation-summary="All"></div>
+
+    <div class="mb-3">
+        <label asp-for="UserEmail"></label>
+        <input asp-for="UserEmail" class="form-control" disabled/>
+
+
+    </div>
+    <div class="mb-3">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" disabled />
+
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" disabled />
+
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="UserRole"></label>
+        <select asp-for="UserRole" class="form-control" disabled>
+            <option value="User">User</option>
+            <option value="Admin">Admin</option>    
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="UserStatus"></label>
+        <select asp-for="UserStatus" class="form-control" disabled>
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+
+        </select>
+    </div>
+    <button type="submit" class="btn btn-danger" id="btn-delete-user">Delete User</button>
+    <a asp-controller="Admin" asp-action="Users" class="btn btn-secondary" style="width: 150px">Back to Users</a>
+</form>
+</div>
+</div>

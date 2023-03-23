@@ -1,0 +1,327 @@
+﻿/* form styles */
+legend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: inherit;
+    color: #333;
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+fieldset {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    min-width: 0;
+    margin-bottom: 2em;
+}
+
+    fieldset fieldset {
+        border: 1px solid #58595b;
+        padding: 4px;
+        padding-left: .5em;
+    }
+
+
+        fieldset fieldset legend {
+            color: #fff;
+            background-color: #58595b;
+            font-weight: bold;
+            margin-left: 0;
+            padding-left: 5px;
+            width: 100%;
+            font-size: 19px;
+        }
+
+@media (min-width: 600px) {
+    fieldset fieldset legend {
+        width: 70%;
+        margin-left: 20px;
+        font-size: 21px;
+
+    }
+}
+
+.no-show{
+    display: none;
+}
+
+#empID {
+    display: block;
+    margin-bottom: 1em;
+}
+
+@media (min-width: 600px) {
+    #empdID {
+        display: inline-block;
+        padding-left: 1em;
+        margin-bottom: 0;
+    }
+}
+
+label {
+    display: block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    vertical-align: top;
+}
+
+
+.select-banks label {
+    width: 20px;
+    display: inline-block;
+}
+
+    .select-banks label:last-child {
+        margin-left: 2em;
+    }
+ fieldset label{
+     border: 1px solid transparent;
+ }
+
+@media (min-width: 600px) {
+    label {
+        max-width: 100%;
+        display: inline-block;
+    }
+
+    .select-banks label {
+        max-width: 80px;
+        margin-right: 20px;
+    }
+}
+
+
+.new-direct-deposit-label{
+    margin-right: 1em;
+}
+
+
+.select-bank-text {
+    font-weight: 700;
+}
+
+.select-banks:nth-child(even) {
+    background-color: #eee;
+}
+
+.select-banks {
+    padding: 4px 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.account-type-name {
+    display: inline-block;
+    width: 200px;
+    font-weight: bold;
+}
+
+
+@media (min-width: 600px) {
+    .select-banks span {
+        width: 250px;
+    }
+}
+
+.verify-group {
+    display: block;
+    width: 100%;
+    vertical-align: middle;
+}
+
+    .verify-group label {
+        display: block;
+        width: auto;
+    }
+
+@media (min-width:600px) {
+    .verify-group {
+        display: inline-block;
+        width: auto;
+        vertical-align: top;
+    }
+}
+
+.checking-savings-container {
+    display: inline-block;
+}
+
+    .checking-savings-container label {
+        display: inline-block;
+        padding-right: 1em;
+    }
+
+@media (min-width: 600px) {
+    .checking-saving-container label {
+    }
+}
+
+.accounts-info .form-group {
+    margin-bottom: 2em;
+}
+
+.accounts-info-details{
+    margin-bottom: 2em;
+}
+
+.employee-info-payperiods,
+.employee-info-id {
+    float: left;
+    width: 100%;
+    margin-left: 0;
+}
+
+.employeeID{
+    width: 100px;
+    text-align:center;
+}
+.employee-info-payperiods {
+    width: auto;
+}
+
+    .employee-info-payperiods label {
+        display: inline-block;
+        margin-right: 1em;
+        width: 190px;   
+    }
+
+
+@media (min-width: 600px) {
+    .employee-info-id,
+    .employee-info-payperiods {
+        width: auto;
+    }
+
+    .employee-info-payperiods {
+        margin-left: 2em;
+    }
+}
+
+.employee-new-add-group label{
+    width: 170px;
+}
+
+@media (min-width: 600px){
+    .employee-new-add-group label {
+        width: auto;
+    }
+}
+
+.dd-form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+input.dd-form-control {
+    margin-bottom: 1em;
+}
+input.employee-signature {
+    width: 100%;
+}
+
+
+.dd-info-lightbox {
+    background-color: #fff;
+    height:98%;
+    width: 98%;
+    padding: 1%;
+    margin: 1% auto;
+    overflow: auto;
+}
+
+
+/* -----------   lightbox  -----------------------------------  */
+.dd-info-lightbox-background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(128,128,128,1);
+    z-index: 10000;
+    display: none;
+    top: 0;
+    left: 0;
+}
+
+.review-header-info{
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+
+
+.small-radio-buttons {
+    height: 20px;
+    width: 34px;
+    margin: 6px auto;
+}
+
+
+.image-upload {
+    display: block;
+    /*padding-top: 8px;*/
+    border: 1px solid #bbb;
+    padding: 4px;
+    margin-bottom: 1em;
+}
+
+.fixed-dollar-amount{
+    margin-left: 1em;
+    margin-bottom: 1em;
+}
+
+
+button.resetbutton.button {
+    display: block;
+}
+
+.validation-error{
+    padding: 4px;
+    border: 1px solid red;
+}
+
+
+
+.errorMessages,
+.errorMessagesController{
+    border: 2px solid darkred;
+    padding: 4px;
+    margin-bottom: 2em;
+}
+
+.errorMessages .errors,
+.errorMessagesController .errors{
+    font-size: 120%;
+    font-weight: 700;
+}
+
+
+
+
+/* ------------  development styles only    -----------------*/
+.image-preview {
+    max-width: 100%;
+}
+
+
+.image-preview-container, .canvas-container {
+    /*display: none;*/
+}
+
+

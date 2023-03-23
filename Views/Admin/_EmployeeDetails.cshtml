@@ -1,0 +1,125 @@
+﻿@model IEnumerable<DDReviewViewModel>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="print-hide">
+    <form asp-controller="Admin" asp-action="DDReview" method="post">
+        <fieldset>
+            <legend>Request Types</legend>
+            <fieldset class="form-group ddreview">
+                <legend>
+                    <select id="ddrequest-type" class="status-request-type">
+                        <!option value="pending" @if (ViewBag.ViewInfo=="pending"){
+                        @Html.Raw("selected")
+}>Pending Requests</!option>
+                        <!option value="completed" @if (ViewBag.ViewInfo=="completed"){
+                        @Html.Raw("selected")
+}>Completed Requests</!option>
+                        <!option value="all" @if (ViewBag.ViewInfo!="pending" && ViewBag.ViewInfo!="completed"){
+                        @Html.Raw("selected")
+}>All Requests</!option>
+                    </select>
+                </legend>
+                <div class="direct-deposit-requests-container">
+                    <table id="ddtable" class="direct-deposit-requests  table table-striped">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" name="name" value="1" id="select-all-checkboxes"></th>
+                                <th>Employee Name</th>
+                                <th>NetID</th>
+                                <th>Employee ID#</th>
+                                <th>Account Type</th>
+                                <th class="no-show">Routing#</th>
+                                <th class="no-show">Account#</th>
+                                <th class="no-show">Bank Name</th>
+                                <th class="no-show">City, State</th>
+                                <th class="no-show">Checking Acct</th>
+                                <th class="no-show">Dollar Amt</th>
+                                <th class="no-show">Check Image</th>
+                                <th>Date Received</th>
+                                <th>Date Completed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int i = 0;
+                                string lockedDate = "locked";
+                                DateTime tmpDate;
+                                string receivedDateTime = "";
+                                string processedDateTime = "";
+                                string rawDate = "";
+                            }
+                            @foreach (var uinfo in Model)
+                            {
+                                // convert received date to sortable date format
+
+                                rawDate = uinfo.dateReceived.ToString();
+                                if (string.IsNullOrEmpty(rawDate))
+                                {
+                                    receivedDateTime = "Invalid Date";
+                                }
+                                else
+                                {
+                                    tmpDate = DateTime.Parse(rawDate);
+                                    receivedDateTime = tmpDate.ToString("yyyy MM dd") + " " + tmpDate.ToString("hh:mm tt");
+                                }
+                                processedDateTime = "";
+                                // if dateprocessed, lock record from being updatable
+                                if (string.IsNullOrEmpty(uinfo.dateProcessed.ToString()))
+                                {
+                                    lockedDate = "";
+                                }
+                                else
+                                {
+                                    lockedDate = "locked";
+                                    // convert processed date to sortable date format
+                                    rawDate = uinfo.dateProcessed.ToString();
+                                    tmpDate = DateTime.Parse(rawDate);
+                                    processedDateTime = tmpDate.ToString("yyyy MM dd") + " " + tmpDate.ToString("hh:mm tt");
+                                };
+                                <tr>
+                                    <td><input type="checkbox" class="item-checkbox @lockedDate" name="rowID" value="@i"></td>
+                                    <td>@uinfo.firstName @uinfo.lastName</td>
+                                    <td>
+                                        @uinfo.netID
+                                        <input type="hidden" name="ddInfo[@i].netID" value="@uinfo.netID">
+                                    </td>
+                                    <td>
+                                        @uinfo.employeeID
+                                        <input type="hidden" name="ddInfo[@i].employeeID" value="@uinfo.employeeID">
+                                    </td>
+                                    <td>@uinfo.accountType</td>
+                                    <td class="no-show">@uinfo.routingNumber</td>
+                                    <td class="no-show">
+                                        @uinfo.accountNum
+                                        <input name="ddInfo[@i].accoutnNum" type="hidden" value="@uinfo.accountNum">
+                                        <input name="ddInfo[@i].ID" type="hidden" value="@uinfo.bankAccountID">
+                                    </td>
+                                    <td class="no-show">@uinfo.bankName</td>
+                                    <td class="no-show">@uinfo.cityState</td>
+                                    <td class="no-show">@uinfo.checkingOrSavings</td>
+                                    <td class="no-show">@uinfo.dollarAmount</td>
+                                    <td class="no-show">
+                                        @if (uinfo.checkImage != null)
+                                        {
+                                            <img alt="check-image" src="data:image/jpg;base64,@Convert.ToBase64String(@uinfo.checkImage)">
+                                        }
+                                    </td>
+                                    <td>
+                                        @receivedDateTime
+                                    </td>
+                                    <td>
+                                        @processedDateTime
+                                        <input type="hidden" id="dateProcessed[@i]" name="ddInfo[@i].dateProcessed" value="">
+                                        
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+        </fieldset>
+    </form>
+</div>

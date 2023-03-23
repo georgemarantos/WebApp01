@@ -1,0 +1,100 @@
+﻿@model AdminUser
+
+@{
+    ViewData["Title"] = "Edit User";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["PageH1Title"] = "Edit User Access";
+}
+
+<partial name="_ShowErrors" />
+    <div class="col-md-6">
+        <form method="post" asp-action="EditUser" id="form-edit-user">
+            @*    <div asp-validation-summary="All"></div>*@
+            <div class="validation-summary-errors">
+                <ul>
+                </ul>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="UserEmail"></label>
+                <input asp-for="UserEmail" class="form-control" type="email" required readonly />
+                <input asp-for="Id" type="hidden" />
+                @*<span asp-validation-for="UserEmail" class="text-danger"></span>*@
+
+            </div>
+            <div class="mb-3">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control" required />
+                @*<span asp-validation-for="FirstName" class="text-danger"></span>*@
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control" required />
+                @*<span asp-validation-for="LastName" class="text-danger"></span>*@
+            </div>
+
+            <div class="mb-3">
+                <label for="resetUserPassword">Reset User Password</label>
+                <input id="resetUserPassword" name="resetUserPassword" type="checkbox" value="yes" />
+            </div>
+
+            <div class="reset-password hide">
+                <div class="mb-3">
+                    <label for="newUserPword">New Password* (max length: 15 characters)</label>
+                    @*<input type="password" id="newUserPword" name="newUserPword" type="password" value="" class="form-control" maxlength="15" />*@
+                    <input type="password" asp-for="UserPword" type="password" class="form-control" maxlength="15" />
+                    @*<input type="hidden" asp-for="UserPword" class="form-control" />*@
+
+                    @*<span asp-validation-for="UserEmail" class="text-danger"></span>*@
+                    <p>This will require them to change their password on their next login.</p>
+                </div>
+
+                <div>
+                    <p class="label-header">Passwords must:</p>
+                    <ul>
+                        <li>be between 8 - 15 characters</li>
+                        <li>contain at least 1 uppercase alphanumeric character</li>
+                        <li>contain at least 1 lowercase alphanumeric character</li>
+                        <li>contain at least 1 special character (example: !, #, $, %, etc.)</li>
+                        <li>contain at least 1 number</li>
+                    </ul>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="ValidateUserPword">Verify Password (max length: 15 characters)</label>
+                    <input id="ValidateUserPword" name="ValidateUserPword" class="form-control" type="password" value="" maxlength="15" />
+                    @*<span asp-validation-for="UserEmail" class="text-danger"></span>*@
+
+                </div>
+            </div>
+
+
+            <div class="mb-3">
+                <label asp-for="UserRole"></label>
+                <select asp-for="UserRole" class="form-control">
+                    <option value="User">User</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="UserStatus"></label>
+                <select asp-for="UserStatus" class="form-control">
+                    <option value="1">Active</option>
+                    <option value="0">Inactive</option>
+
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:150px;">Update User</button>
+            <a asp-controller="Admin" asp-action="Users" class="btn btn-secondary" style="width: 150px">Back to Users</a>
+        </form>
+
+    </div>
+</div>
+
+@*@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}*@

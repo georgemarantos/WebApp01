@@ -1,0 +1,354 @@
+﻿@model CleanDDTest.Models.ViewModel
+@{
+    ViewData["Title"] = "Home Page";
+    ViewData["PageH1Title"] = "The University of Tennessee/Payroll Office Authorization Agreement for Direct Deposit";
+    var User = ViewData["user"] as CleanDDTest.Models.User;
+    var UserAcct = ViewData["UserAcct"] as CleanDDTest.Models.Bankaccount;
+    string ErrorMessages = ViewBag.errorMessages;
+    // replace with cas info below
+    string pLname = "Guy";
+    string pFname = "Test";
+    string pMname = "E";
+    string pNetID = "testguy";
+    string pUid = "00000000";
+}
+
+<div id="ddform">
+    <div class="errorMessages hide"></div>
+    @if (!string.IsNullOrEmpty(ErrorMessages))
+    {
+        <div class="errorMessagesController"><p class="errors">Please correct the following requirements.</p><p>@Html.Raw(ErrorMessages)</p></div>
+    }
+
+    <form action="/Home/OnPost" enctype="multipart/form-data" id="authorizationform" method="post">        
+        <fieldset>
+            <legend>
+                Employee information
+            </legend>
+            <fieldset class="form-group">
+                <legend>
+                    Employee Name: 
+                </legend>
+                <label for="">Last:<input asp-for="User.LastName" class="dd-form-control" maxlength="50" placeholder="Last Name" type="text" id="employeelastname" required disabled  value="@pLname"/></label>                
+                <label for="">First:<input asp-for="User.FirstName" class="dd-form-control" maxlength="50" placeholder="First Name" type="text" id="employeefirstname" required disabled value="@pFname" /></label>
+                <label for="">MI:<input asp-for="User.MiddleInit" class="dd-form-control" maxlength="50" placeholder="Middle Initial" type="text" id="employeemiddleinitial" disabled value="@pMname" /></label>
+                <label for=""><input asp-for="User.NetId" type="hidden" name="netID" value="@pNetID"></label>
+            </fieldset>
+
+            <fieldset class="form-group employee-additional">
+                <legend>
+                    Employee additional info:
+                </legend>
+
+                <div class="employee-info-id">
+                    <label asp-for="Account.EmpId">Employee ID#: </label><p class="employeeID">@pUid</p>
+                    <input asp-for="Account.EmpId" class="dd-form-control" type="hidden" id="empID" name="employeeid" value="@pUid"/>
+                </div>
+                <div class="employee-info-payperiods">
+                    <label asp-for="User.PayPeriod">Monthly (exempt)<input asp-for="User.PayPeriod" type="radio" value="Monthly" class="dd-form-control small-radio-buttons" /></label>
+                    <label asp-for="User.PayPeriod">Biweekly (non-exempt)<input asp-for="User.PayPeriod" type="radio" value="Biweekly" class="dd-form-control small-radio-buttons" /></label>
+                </div>
+
+            </fieldset>
+        </fieldset>
+
+        <fieldset>
+            <legend>Add/Update Bank Selections</legend>
+            <fieldset class="form-group">
+                <legend>
+                    New/Update Bank Information:
+                </legend>
+                <div class="employee-new-add-group">
+                    <label for="" class="new-direct-deposit-label">New Direct Deposit<input class="dd-form-control new-or-add-selection small-radio-buttons" name="newOrAdd" type="radio" value="New"></label>
+                    <label for="">Change Direct Deposit<input class="dd-form-control new-or-add-selection small-radio-buttons" name="newOrAdd" type="radio" value="Update"></label>
+                </div>
+
+            </fieldset>
+            <p class="select-bank-text">Select all the accounts that you wish to add or change: <span class="account-warning">You must have at least one item checked Yes.</span></p>
+
+            <div class="select-banks">
+                <span class="account-type-name">Primary Bank Account:</span>
+                <label for="select-primary-bank0">
+                    Yes
+                    <input asp-for="Account.AccountType" type="radio" id="select-primary-bank0" name="select-primary-bank" class="dd-form-control" value="1" checked />
+                </label>
+
+                <label for="select-primary-bank1">
+                    <span>No</span>
+                    <input asp-for="Account.AccountType" type="radio" id="select-primary-bank1" name="select-primary-bank" class="dd-form-control" value="0" />
+                </label>
+            </div>
+
+            <div class="select-banks">
+                <span class="account-type-name">Secondary Bank Account:</span>
+                <label for="select-secondary-bank0">
+                    Yes
+                    <input asp-for="Account.AccountType" type="radio" id="select-secondary-bank0" name="select-secondary-bank" class="dd-form-control" value="1" />
+                </label>
+
+                <label for="select-secondary-bank1">
+                    <span>No</span>
+                    <input type="radio" id="select-secondary-bank1" name="select-secondary-bank" class="dd-form-control no-button " value="0" checked />
+                </label>
+            </div>
+
+            <div class="select-banks">
+                <span class="account-type-name">Travel Bank Account*:</span>
+                <label for="select-travel-bank0">
+                    Yes
+                    <input asp-for="Account.AccountType" type="radio" id="select-travel-bank0" name="select-travel-bank" class="dd-form-control" value="1" />
+                </label>
+
+                <label for="select-travel-bank1">
+                    <span>No</span>
+                    <input asp-for="Account.AccountType" type="radio" id="select-travel-bank1" name="select-travel-bank" class="dd-form-control no-button " value="0" checked />
+                </label>
+            </div>
+                <p><strong>*Travel will automatically be deposited into your primary account.  This is only if you want it to go to a different account.</strong></p>
+        </fieldset>
+
+        <fieldset class="accounts-info">
+            <legend>
+                Accounts
+            </legend>
+            <p class="accounts-info-details">
+                Select a checking/savings preference and upload a
+                picture or pdf of a cancelled check or letter from the bank verifying the account number. If you wish to change (or add) the secondary account or travel bank, enter the
+                primary account details and enter the secondary and/or travel bank details and upload the required information.
+            </p>
+
+            <!-- ///////////////////////   PRIMARY BANK        /////////////////////////////   -->
+            <fieldset class="form-group primary-account-group">
+                <legend>Primary Account:</legend>
+                <div>
+                    <div class="verify-group">
+                        <label for="">
+                            Bank Routing#:
+                            <input asp-for="Account.RoutingNumber" id="primary-routing-number" class="dd-form-control"  maxlength="20" placeholder="Bank Routing#" type="text" value="">
+                        </label>
+                        <label>
+                            Verify Bank Routing#:
+                            <input class="dd-form-control" id="verify-primary-routing-number" name="verify-primary-routing-number" maxlength="20" placeholder="Bank Routing#" type="text" value="">
+                        </label>
+                    </div>
+                    <div class="verify-group">
+                        <label for="">
+                            Bank Acccount#:
+                            <input asp-for="Account.AccountNum"  id="primary-account-number"  class="dd-form-control" maxlength="20" placeholder="Bank Acccount#" type="text" value="">
+                        </label>
+                        <label>
+                            Verify Bank Acccount#:
+                            <input class="dd-form-control" id="verify-primary-account-number" name="verify-primary-account-number" maxlength="20" placeholder="Bank Acccount#" type="text" value="">
+                        </label>
+                    </div>
+                    <label for="">
+                        Name of Bank or Financial Institution:
+                        <input asp-for="Account.BankName" id="primary-bank-name" class="dd-form-control bankname primarybankname" maxlength="128" placeholder="Bank or Financial Institution" type="text" value="">
+                    </label>
+                    <label for="">
+                        City, State:
+                        <input asp-for="Account.CityState" id="primary-bank-address" class="dd-form-control bankcity primarybankcity" maxlength="50" placeholder="City, State" type="text" value="">
+                    </label>
+                </div>
+                <div class="checking-savings-container">
+                    <label asp-for="Account.Account">Checking<input asp-for="Account.Account" type="radio" value="Checking" class="dd-form-control small-radio-buttons" /></label>
+                    <label asp-for="Account.Account">Savings<input asp-for="Account.Account" type="radio" value="Savings"  class="dd-form-control small-radio-buttons" /></label>
+                    
+                    @* <label for="">Checking<input class="dd-form-control small-radio-buttons" name="primary-account-type" type="radio" value="primary-checking" data-checking="primary"></label>
+                    <label for="">Savings<input class="dd-form-control small-radio-buttons" name="primary-account-type" type="radio" value="primary-savings" data-checking="primary"></label>*@
+                </div>
+                <div class="primary-file-upload-container">
+                    <label asp-for="FileModel.ImageFileP">
+                        Picture of your voided check or a document from your bank showing the account and routing number.
+                        <input asp-for="FileModel.ImageFileP" type="file" id="primary-upload" class="image-upload">                       
+                    </label>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-group secondary-account-group hide">
+                <legend>
+                    Secondary Account:
+                </legend>
+                <div>
+                    <div class="verify-group">
+                        <label for="">
+                            Bank Routing#:
+                            <input asp-for="SecondaryAccount.RoutingNumber" class="dd-form-control" id="secondary-routing-number" maxlength="20" placeholder="Bank Routing#" type="text" value="">
+                        </label>
+                        <label for="">
+                            Verify Bank Routing#:
+                            <input class="dd-form-control" id="verify-secondary-routing-number" name="verify-secondary-routing-number" maxlength="20" placeholder="Verify Bank Routing#" type="text" value="">
+                        </label>
+                    </div>
+                    <div class="verify-group">
+                        <label for="">
+                            Bank Acccount#:
+                            <input asp-for="SecondaryAccount.AccountNum" class="dd-form-control" id="secondary-account-number" maxlength="20" placeholder="Bank Acccount#" type="text" value="">
+                        </label>
+                        <label for="">
+                            Verify Bank Acccount#:
+                            <input class="dd-form-control" id="verify-secondary-account-number" name="verify-secondary-account-number" maxlength="20" placeholder="Verify Bank Acccount#" type="text" value="">
+                        </label>
+                    </div>
+
+                    <label for="">
+                        Name of Bank or Financial Institution:
+                        <input asp-for="SecondaryAccount.BankName" class="dd-form-control" id="secondary-bank-name" maxlength="128" placeholder="Bank or Financial Institution" type="text" value="">
+                    </label>
+                    <label for="">
+                        City, State:
+                        <input asp-for="SecondaryAccount.CityState" class="dd-form-control" id="secondary-bank-address" maxlength="50" placeholder="City, State" type="text" value="">
+                    </label>
+                </div>
+
+                <div class="checking-savings-container">
+                    <label asp-for="SecondaryAccount.Account">Checking<input asp-for="SecondaryAccount.Account" type="radio" value="Checking" class="dd-form-control small-radio-buttons" /></label>
+                    <label asp-for="SecondaryAccount.Account">Savings<input asp-for="SecondaryAccount.Account" type="radio" value="Savings" class="dd-form-control small-radio-buttons" /></label>
+                </div>
+
+                <div>
+                    <label for="" class="fixed-dollar-label">
+                        Fixed
+                        Dollar Amount:<input  asp-for="SecondaryAccount.DollarAmount" maxlength="15" class="fixed-dollar-amount" placeholder="$000.00" size="10" type="text" value="">
+                    </label>
+                </div>
+
+                <div class="secondary-file-upload-container">
+                    <label for="">
+                        Picture of your voided check or a document from your bank showing the account and routing number.
+                        <input asp-for="FileModel.ImageFileS" type="file" id="secondary-upload" class="image-upload"/>                       
+                    </label>
+                </div>
+                <button class="resetbutton button" type="reset" value="secondary-account-group">Clear secondary fields</button>
+            </fieldset>
+
+            <fieldset class="form-group travel-account-group hide">
+                <legend>
+                    Travel Account:
+                </legend>
+
+                <div>
+                    <div class="verify-group">
+                        <label for="">
+                            Bank Routing#:
+                            <input asp-for="TravelAccount.RoutingNumber" class="dd-form-control" id="travel-routing-number" maxlength="20" placeholder="Bank Routing#" type="text" value="">
+                        </label>
+                        <label>
+                            Verify Bank Routing#:
+                            <input class="dd-form-control" id="verify-travel-routing-number" name="verify-travel-routing-number" maxlength="20" placeholder="Verify Bank Routing#" type="text" value="">
+                        </label>
+                    </div>
+                    <div class="verify-group">
+                        <label for="">
+                            Bank Acccount#:
+                            <input asp-for="TravelAccount.AccountNum" class="dd-form-control" id="travel-account-number" maxlength="20" placeholder="Bank Acccount#" type="text" value="">
+                        </label>
+                        <label for="">
+                            Verify Bank Acccount#:
+                            <input class="dd-form-control" id="verify-travel-account-number" name="verify-travel-account-number" maxlength="20" placeholder="Verify Bank Acccount#" type="text" value="">
+                        </label>
+                    </div>
+                    <label for="">
+                        Name of Bank or Financial Institution:<input asp-for="TravelAccount.BankName" class="dd-form-control bankname travelbankname" id="travel-bank-name" maxlength="128" placeholder="Bank or Financial Institution" type="text" value="">
+                    </label>
+                    <label for="">
+                        City,State:<input asp-for="TravelAccount.CityState" class="dd-form-control bankcity travelbankcity" id="travel-bank-address" maxlength="50" placeholder="City, State" type="text" value="">
+                    </label>
+                </div>
+
+
+                <div class="checking-savings-container">
+                    <label asp-for="TravelAccount.Account">Checking<input asp-for="TravelAccount.Account" class="dd-form-control small-radio-buttons" type="radio" value="Checking" data-checking="travel"></label>
+                    <label asp-for="TravelAccount.Account">Savings<input asp-for="TravelAccount.Account"class="dd-form-control small-radio-buttons" type="radio" value="Savings" data-checking="travel"></label>
+                </div>
+                <div class="travel-file-upload-container">
+                    <label for="">
+                        Picture of your voided check or a document from your bank showing the account and routing number.
+                        <input asp-for="FileModel.ImageFileT" type="file" id="travel-upload" class="image-upload" >
+                    </label>
+                </div>
+                <button class="resetbutton button" type="reset" value="travel-account-group">Clear travel fields</button>
+            </fieldset>
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                Authorization
+            </legend>
+            <fieldset class="form-group">
+                <legend>
+                    Employee Signature:
+                </legend>
+                <p>
+                    I hereby authorize The University of Tennessee to automatically deposit my net pay and travel reimbursements into my account(s) at the financial institution(s) indicated. I also authorize withdrawal transactions from my account(s), limited to the amount of the original deposit, in the event of an overpayment or erroneous deposit.
+                </p>
+                <input maxlength="128" class="employee-signature" name="authorizationrequest[pr_employeesignature]" placeholder="type name for signature" size="128" type="text" value="">
+                <input type="hidden" value="">
+                <br>
+                Signature Date: @DateOnly.FromDateTime(DateTime.Now)
+            </fieldset>
+        </fieldset>
+        <div>
+            <input type ="button" class="review-button button" value="Review and Submit">
+        </div>
+
+       @* //hidden pop up review div*@
+        <div class="dd-info-lightbox-background" id="review-info">
+            <div class="dd-info-lightbox">
+                <h2>Review and Submit</h2>
+                <p>Please review all of your information for accuracy before you submit it.</p>
+                <div class="dd-review-container">
+
+                    <div class="review-group">
+                        <h3>Employee Information</h3>
+                        <p>Name: <span class="review-name" ></span></p>
+                        <p>Employee id: <span class="review-empid"></span></p>
+                        <p>Pay period: <span class="review-payperiod"></span></p>
+                    </div>
+
+                    <div class="review-group ">
+                        <h3>Bank Information</h3>
+                        <p>New or Update: <span class="review-update"></span></p>
+                        <div class="review-primary hide">
+                            <p class="review-header-info">Primary Account Information:</p>
+                            <ul>
+                                <li><span class="review-primary-name"></span>, <span class="review-primary-address"></span></li>
+                                <li>Routing Number: <span class="review-primary-routing-number"></span> </li>
+                                <li>Bank Account Number:  <span class="review-primary-bank-account-number" ></span></li>
+                                <li>Account Type: <span class="review-primary-account-type"></span> </li>
+                            </ul>
+                        </div>
+
+                        <div class="review-secondary hide">
+                            <p class="review-header-info">Secondary Account Information: </p>
+                            <ul>
+                                <li><span class="review-secondary-name"></span>, <span class="review-secondary-address"></span></li>
+                                <li>Routing Number: <span class="review-secondary-routing-number"></span> </li>
+                                <li>Bank Account Number:  <span class="review-secondary-bank-account-number"></span></li>
+                                <li>Account Type: <span class="review-secondary-account-type"></span> </li>
+                                <li>Amount: <span class="review-secondary-amount"></span> </li>
+                            </ul>
+                        </div>
+
+                        <div class="review-travel hide">
+                            <p class="review-header-info">Travel Account Information:</p>
+                            <ul>
+                                <li><span class="review-travel-name"></span>, <span class="review-travel-address"></span></li>
+                                <li>Routing Number: <span class="review-travel-routing-number"></span> </li>
+                                <li>Bank Account Number:  <span class="review-travel-bank-account-number"></span></li>
+                                <li>Account Type: <span class="review-travel-account-type"></span> </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="btn-submit-group">
+                        <input type="button" class="edit-button" value="Edit Information">
+                        <input type="submit" class="submit-button" value="Submit Information">
+                        <input type="button" class="submitted-info hide" value="Submitting Information" disabled/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </form>
+</div>

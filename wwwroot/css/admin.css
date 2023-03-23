@@ -1,0 +1,133 @@
+﻿/* -----------  ADMIN Styles   -------------*/
+
+.admin-menu-container {
+    background-color: #f2f2f0;
+    border-bottom: 1px solid #ccc;
+}
+
+.admin-menu {
+    width: 100%;
+    padding-left: 0;
+/*    max-height: 40px;  */
+    margin: 0;
+}
+
+    .admin-menu li {
+        display: inline-block;
+        padding: 6px;
+    }
+
+.status-request-type {
+    background-color: #555;
+    border: 0 none;
+    width: 235px;
+    color: #fff;
+    font-weight:700;
+}
+
+.direct-deposit-requests{
+    width: 100%;
+}
+.direct-deposit-request thead{
+    background-color: #999;
+}
+
+.ddreview{
+    overflow:hidden;
+    min-width:320px
+}
+
+#ddtable{
+    max-width:100%;
+    min-width:400px;
+}
+.toolbar {
+    display: block;
+    float: none;
+}
+@media (min-width: 700px){
+    .toolbar {
+        display: inline-block;
+        float:left;
+        margin-left:2em;
+    }
+}
+.label-actions{
+    font-weight:700;
+    margin-right: 1em;
+}
+.toolbar img{
+    display: inline-block;
+    margin: 0 10px;
+}
+.toolbar button {
+    background-color: #eee;
+    display: inline-block;
+    padding: 4px 16px;
+    border: 1px solid #aaa;
+    margin: 0 6px;
+}
+div#ddtable{
+    width: 100%;
+}
+div#ddtable_filter{
+    float: none;
+    text-align:left;
+    margin-top: 6px;
+}
+@media (min-width: 700px){
+    div#ddtable_filter{
+        text-align: right;
+    }
+}
+.user-button{
+    width: 150px;
+}
+
+
+.actions img {
+    margin-right: 1em;
+}
+
+.completed {
+    display: none;
+}
+
+.dd-review-container{
+    page-break-after:always;
+    border-bottom: 1px solid #ccc;
+}
+
+/* --- IMAGE SIZING FOR BACK END   -----*/
+
+/*  ================   Admin User table Styles     ======================  */
+@media (max-width: 701px) {
+
+    #user-table thead {
+        display: none;
+    }
+
+    #user-table thead tr {
+        border-bottom: 2px solid #aaa;
+    }
+
+    #user-table tbody tr {
+        border-bottom: 2px solid #aaa;
+    }
+
+    #user-table tbody tr td{
+        display: inline-block;
+        width: 50%;
+        border: 1px solid #ddd;
+    }
+
+    #user-table tbody tr td:last-child {
+        width: 100%;
+        border-bottom: 1px solid #ddd;    
+        text-align:center;
+
+    }
+
+    @media (min-width: 700px) {
+    }
+}

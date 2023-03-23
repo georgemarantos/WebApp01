@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Welcome to The University of Tennessee Payroll, Benefits and Retirement Direct Deposit form." />
+    <title>@ViewData["Title"] - University of Tennessee Payroll, Benefits and Retirement</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/directdeposit.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CleanDDTest.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <div id="notification" class="notification-bar-container">
+        <p class="notification-message"><a href="https://tennessee.edu/coronavirus/">COVID-19 Updates</a></p>
+    </div>
+
+    <!--[if lt IE 9]>
+      <div class="alert alert-warning">
+        You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.      </div>
+    <![endif]-->
+
+    <a href="#main-container" class="skip">Skip to content</a>
+
+    <header class="navbar-container clearfix no-mobile" role="banner">
+        <div class="container-isfluid clearfix">
+            <div class="navbar-header clearfix">
+                <button type="button" data-bs-toggle="collapse" class="navbar-toggle" data-toggle="collapse" data-bs-target="#slidemenu" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="mobile-only">MENU</span>
+                    <a id="nav-toggle" href="#" class="" aria-label="Mobile menu"><span></span></a>
+                </button>
+                <a class="navbar-brand-ut desktop-logo" href="http://tennessee.edu/"><img class="logo" src="/images/ut-system-primary-med.png" alt="The University of Tennessee System"></a>
+                <a class="navbar-brand-ut mobile-logo" href="http://tennessee.edu/"><img class="logo" src="/images/ut-mobile.png" alt="The University of Tennessee System"></a>
+            </div>
+            <section class="widget_text widget custom_html-3 widget_custom_html">
+                <div class="textwidget ">
+                    <form method="GET" action="https://search.tennessee.edu/search" class="search-form form-inline">
+                        <label for="utk_seek" class="sr-only">Search for:</label>
+                        <div class="input-group">
+                            <input type="text" id="search-box" name="q" class="search-field form-control" value=" Search tennessee.edu" onfocus="this.value=''" required="">
+                            <label for="search-box">
+                                <img src="~/lib/bootstrap/icons/search.svg" alt="Search icon" class="bootstrap-icon search-icon" aria-hidden="true" />
+                                <span class="sr-only">Search</span>
+                            </label>
+                            <input type="hidden" name="qtype" class="searchtext" title="search type" value="system">
+                        </div>
+                    </form>
+                </div>
+            </section>
+            <nav id="utNav" class="navbar-collapse" role="navigation" aria-expanded="false">
+                <div class="container-isfluid">
+                    <div class="menu-1-container">
+                        <ul id="menu-1" class="nav navbar-nav-ut">
+                            <li id="menu-item-7" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-7"><a title="A-Z Index" href="http://tennessee.edu/a-z-index/">A - Z Index</a></li>
+                            <li id="menu-item-8" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8"><a title="Directory" href="https://directory.utk.edu/">Directory</a></li>
+                            <li id="menu-item-9" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9"><a title="Office 365" href="http://office365.utk.edu/">Office 365</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="slidemenu" class="slidemenu">
+            <nav id="catNav" class="navbar-collapse" role="navigation" aria-expanded="false">
+                <div class="container-isfluid">
+                    <a class="navbar-mobile-title" href="https://hr.tennessee.edu/">Payroll, Benefits and Retirement</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div id="main-container" class="container-isfluid">
+        <div>
+            <p class="no-sensitive-data-warning"> * *  THIS SITE IS JUST FOR TESTING.  PLEASE DO NOT USE REAL DATA WHILE TESTING THE APPLICATION  * *</p>
+        </div>
+        <main role="main" class="pb-3">
+            <div class="page-header">
+                <h1>@ViewData["PageH1Title"]</h1>
+            </div>
+            @RenderBody()
+        </main>
+    </div>
+
+    <div class="footerTop">
+        <div class="container-isfluid flex-container">
+        </div>
+
+    </div>
+    <footer class="content-info" role="contentinfo">
+        <div class="container-isfluid flex-container">
+            <section class="flex-child">
+                <div class="textwidget">
+                    <a href="https://finance.tennessee.edu"><img src="https://finance.tennessee.edu/wp-content/uploads/2019/11/footer-ut-finance-admin-wordmark.png" alt="UT System Finance" width="283" height="50"></a>
+                    <p>&nbsp;</p>
+                    <p><a href="https://tennessee.edu/privacy/">Privacy Notice</a></p>
+                </div>
+            </section>
+            <section class="flex-child">
+                <p><strong>Contact Information</strong></p>
+                <div class="textwidget">
+                    <p><strong>Physical address: </strong></p>
+                    <ul class="footer-address-list">
+                        <li>400 W Summit Hill Dr.</li>
+                        <li>UT Tower 9th Floor</li>
+                        <li>Knoxville, TN  37902</li>
+                    </ul>
+                </div>
+            </section>
+            <section class="flex-child">
+                <div class="textwidget ">
+                    <p><strong>Mailing Address: </strong></p>
+                    <address>
+                        505 Summer Place – 912 UT Tower<br>
+                        Knoxville, TN  37902
+                    </address>
+                </div>
+            </section>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/directdeposit.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

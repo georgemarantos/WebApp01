@@ -1,0 +1,62 @@
+﻿@model LoginModel
+@{
+    ViewData["Title"] = "AdminLogin";
+}
+
+<h1>Admin Login</h1>
+@{
+    if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="error-message">
+            <p>@ViewBag.ErrorMessage</p>
+        </div>
+
+    }
+}
+<div class="row col-md-4">
+
+
+
+    @{
+        if (ViewBag.LockedOut != 1)
+        {
+            <form asp-action="Login" method="post">
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+
+                    <label asp-for="UserEmail" class="form-label">Email address</label>
+                    <input type="email" asp-for="UserEmail" class="form-control" required />
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="UserPword">Password</label>
+                    <input type="password" asp-for="UserPword" class="form-control" required />
+
+                </div>
+
+                <!-- 2 column grid layout for inline styling -->
+                <div class="row mb-4">
+                    <div class="col">
+                        <!-- Simple link -->
+                        <a href="mailto:@ViewBag.EmailContact?subject=Reset Direct Deposit Password&body=Please reset my direct deposit login.">Forgot password</a>
+                    </div>
+                </div>
+
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+            </form>
+        }
+        else
+        {
+            <p>Please try again in a few minutes.</p>
+                        <div class="col">
+                                <!-- Simple link -->
+                                <a href="mailto:@ViewBag.EmailContact?subject=Reset Direct Deposit Password&body=Please reset my direct deposit login.">Forgot password</a>
+                            </div>
+        }
+    }
+
+</div>
